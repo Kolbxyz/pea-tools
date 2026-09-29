@@ -1,4 +1,4 @@
-# PEA Hub
+# PEA Tools
 
 Outils d'analyse, simulateur d'investissement programmé (DCA) et comparateur d'ETF pour le Plan d'Épargne en Actions (PEA).
 

@@ -11,7 +11,7 @@ export const Header: React.FC<HeaderProps> = ({ darkMode, toggleDarkMode }) => {
     <header className="border-b border-claude-border dark:border-claude-darkBorder bg-claude-card dark:bg-claude-darkCard sticky top-0 z-30 transition-colors">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
         <span className="font-semibold text-base tracking-tight text-claude-text dark:text-claude-darkText">
-          PEA Hub
+          PEA Tools
         </span>
 
         <button
