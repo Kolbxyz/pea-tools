@@ -1,32 +1,39 @@
-# React + TypeScript + Vite
+# PEA Hub
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+Outils d'analyse, simulateur d'investissement programmé (DCA) et comparateur d'ETF pour le Plan d'Épargne en Actions (PEA).
 
-Currently, two official plugins are available:
+## Fonctionnalités
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+### Simulateur DCA
+* Calcul actuariel mensuel avec déduction des frais de gestion ETF (TER) et frais de courtage.
+* Gestion des plafonds légaux : PEA Jeune (20 000 €) avec transition automatique vers le PEA Classique (150 000 €) à 25 ans.
+* Calcul fiscal à la sortie : exonération d'IR après 5 ans (17,2 % de prélèvements sociaux sur les gains) ou PFU de 30 % avant 5 ans.
+* Ajustement optionnel pour l'inflation.
 
-## React Compiler
+### Comparateur ETF
+* Données des principaux ETF indiciels capitalisants éligibles (WPEA, CW8, ESE, PE500, PAEEM, SX5E, ETZ).
+* Tickers, codes ISIN (copie en 1 clic), frais annuels, type de réplication (synthétique swap ou physique) et prix indicatif de part.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### Cadre Juridique
+* Références réglementaires : Code monétaire et financier (Art. L. 221-30), Code général des impôts (Art. 150-0 A), Décret n° 2020-89 (Loi Pacte).
+* Conditions de déblocage et cas réels d'exonération avant 5 ans.
 
-## Expanding the Oxlint configuration
+## Installation et Développement
 
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
+```bash
+# Installation des dépendances
+npm install
 
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+# Lancement local (http://localhost:5173)
+npm run dev
+
+# Compilation de production
+npm run build
 ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+## Stack
+
+* React 19 + TypeScript
+* Vite
+* Tailwind CSS v4
+* Lucide React
