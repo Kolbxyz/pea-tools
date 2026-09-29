@@ -25,7 +25,6 @@ export const DcaChart: React.FC<DcaChartProps> = ({ timeline }) => {
   const getX = (year: number) => padding.left + (year / maxYear) * chartWidth;
   const getY = (val: number) => padding.top + chartHeight - (val / yMax) * chartHeight;
 
-  // Path generators
   const generatePath = (valExtractor: (p: YearSimulationPoint) => number) => {
     return timeline.reduce((acc, point, i) => {
       const x = getX(point.year);
@@ -46,7 +45,6 @@ export const DcaChart: React.FC<DcaChartProps> = ({ timeline }) => {
   const depositedPath = generatePath((p) => p.totalDeposited);
   const areaNet = generateAreaPath((p) => p.netValueAfterTaxes);
 
-  // Grid steps (5 steps)
   const yTicks = [0, 0.25, 0.5, 0.75, 1].map((ratio) => Math.round(yMax * ratio));
   const xTicks = timeline
     .filter((_, idx) => idx % Math.max(1, Math.floor(timeline.length / 6)) === 0 || idx === timeline.length - 1)
@@ -55,21 +53,21 @@ export const DcaChart: React.FC<DcaChartProps> = ({ timeline }) => {
   return (
     <div className="relative w-full overflow-hidden bg-claude-card dark:bg-claude-darkCard p-4 rounded-xl border border-claude-border dark:border-claude-darkBorder">
       <div className="flex flex-wrap items-center justify-between gap-2 mb-4 pb-2 border-b border-claude-border/50 dark:border-claude-darkBorder/50">
-        <h4 className="text-xs font-semibold uppercase tracking-wider text-claude-muted dark:text-claude-darkMuted">
-          Évolution de la Valeur dans le Temps
-        </h4>
-        <div className="flex items-center space-x-4 text-xs font-medium">
+        <span className="text-xs font-semibold text-claude-muted dark:text-claude-darkMuted">
+          Évolution du Capital
+        </span>
+        <div className="flex items-center space-x-4 text-xs">
           <div className="flex items-center space-x-1.5">
             <span className="w-3 h-0.5 bg-claude-accent rounded-full"></span>
-            <span className="text-claude-text dark:text-claude-darkText">Valeur Brute</span>
+            <span className="text-claude-text dark:text-claude-darkText">Brut</span>
           </div>
           <div className="flex items-center space-x-1.5">
             <span className="w-3 h-0.5 bg-emerald-500 rounded-full"></span>
-            <span className="text-claude-text dark:text-claude-darkText">Net dans la poche (après taxe)</span>
+            <span className="text-claude-text dark:text-claude-darkText">Net après taxe</span>
           </div>
           <div className="flex items-center space-x-1.5">
-            <span className="w-3 h-0.5 bg-stone-400 dark:bg-stone-500 rounded-full border-dashed"></span>
-            <span className="text-claude-muted dark:text-claude-darkMuted">Total Versé</span>
+            <span className="w-3 h-0.5 bg-stone-400 rounded-full border-dashed"></span>
+            <span className="text-claude-muted dark:text-claude-darkMuted">Dépôts</span>
           </div>
         </div>
       </div>
@@ -87,7 +85,6 @@ export const DcaChart: React.FC<DcaChartProps> = ({ timeline }) => {
             </linearGradient>
           </defs>
 
-          {/* Horizontal Grid lines */}
           {yTicks.map((val) => {
             const y = getY(val);
             return (
@@ -114,7 +111,6 @@ export const DcaChart: React.FC<DcaChartProps> = ({ timeline }) => {
             );
           })}
 
-          {/* Vertical Grid lines */}
           {xTicks.map((yr) => {
             const x = getX(yr);
             return (
@@ -131,10 +127,8 @@ export const DcaChart: React.FC<DcaChartProps> = ({ timeline }) => {
             );
           })}
 
-          {/* Area fill */}
           <path d={areaNet} fill="url(#netGradient)" />
 
-          {/* Lines */}
           <path
             d={depositedPath}
             fill="none"
@@ -160,7 +154,6 @@ export const DcaChart: React.FC<DcaChartProps> = ({ timeline }) => {
             strokeLinejoin="round"
           />
 
-          {/* Interactive hover overlay circles */}
           {timeline.map((point) => {
             const x = getX(point.year);
             const y = getY(point.netValueAfterTaxes);
@@ -171,7 +164,6 @@ export const DcaChart: React.FC<DcaChartProps> = ({ timeline }) => {
                 className="cursor-pointer"
                 onMouseEnter={() => setHoveredPoint(point)}
               >
-                {/* Invisible large hit area */}
                 <rect
                   x={x - (chartWidth / maxYear) / 2}
                   y={padding.top}
@@ -200,7 +192,6 @@ export const DcaChart: React.FC<DcaChartProps> = ({ timeline }) => {
           })}
         </svg>
 
-        {/* Hover Tooltip card */}
         {hoveredPoint && (
           <div
             className="absolute z-20 pointer-events-none p-2.5 rounded-lg bg-claude-card dark:bg-claude-darkCard shadow-lg border border-claude-border dark:border-claude-darkBorder text-xs text-claude-text dark:text-claude-darkText min-w-[190px]"
@@ -211,11 +202,11 @@ export const DcaChart: React.FC<DcaChartProps> = ({ timeline }) => {
             }}
           >
             <div className="font-semibold text-claude-accent mb-1 border-b border-claude-border/40 pb-1 flex justify-between">
-              <span>Année {hoveredPoint.year}</span>
+              <span>An {hoveredPoint.year} ({hoveredPoint.age} ans)</span>
               {hoveredPoint.year >= 5 ? (
-                <span className="text-[10px] text-emerald-600 dark:text-emerald-400 font-normal">PEA &gt; 5 ans (0% IR)</span>
+                <span className="text-[10px] text-emerald-600 dark:text-emerald-400 font-normal">&gt; 5 ans (0% IR)</span>
               ) : (
-                <span className="text-[10px] text-amber-600 dark:text-amber-400 font-normal">&lt; 5 ans (PFU 30%)</span>
+                <span className="text-[10px] text-amber-600 dark:text-amber-400 font-normal">&lt; 5 ans (PFU)</span>
               )}
             </div>
             <div className="space-y-1 font-mono text-[11px]">
@@ -224,19 +215,17 @@ export const DcaChart: React.FC<DcaChartProps> = ({ timeline }) => {
                 <span className="font-semibold">{formatCurrency(hoveredPoint.grossValue)}</span>
               </div>
               <div className="flex justify-between text-emerald-600 dark:text-emerald-400">
-                <span>Net en poche :</span>
+                <span>Net :</span>
                 <span className="font-semibold">{formatCurrency(hoveredPoint.netValueAfterTaxes)}</span>
               </div>
               <div className="flex justify-between text-claude-muted">
-                <span>Versé :</span>
+                <span>Dépôts :</span>
                 <span>{formatCurrency(hoveredPoint.totalDeposited)}</span>
               </div>
-              {hoveredPoint.realPurchasingPower !== hoveredPoint.netValueAfterTaxes && (
-                <div className="flex justify-between text-stone-500 pt-1 border-t border-claude-border/40 text-[10px]">
-                  <span>Pouvoir d'achat :</span>
-                  <span>{formatCurrency(hoveredPoint.realPurchasingPower)}</span>
-                </div>
-              )}
+              <div className="flex justify-between text-claude-muted text-[10px]">
+                <span>Plafond :</span>
+                <span>{formatCurrency(hoveredPoint.activeCeiling)}</span>
+              </div>
             </div>
           </div>
         )}

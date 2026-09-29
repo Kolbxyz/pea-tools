@@ -34,13 +34,13 @@ export function App() {
         {activeTab === 'legislation' && <LegalGuide />}
       </main>
 
-      <footer className="border-t border-claude-border dark:border-claude-darkBorder py-6 mt-12 text-center text-xs text-claude-muted dark:text-claude-darkMuted">
-        <div className="max-w-6xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3">
+      <footer className="border-t border-claude-border dark:border-claude-darkBorder py-6 mt-12 text-xs text-claude-muted dark:text-claude-darkMuted">
+        <div className="max-w-6xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
           <p>
-            PEA Hub &bull; Conçu pour les investisseurs particuliers &bull; Données réelles et conformes au droit français
+            Outil d'information financière indépendant. Les calculs fiscaux et projections ne constituent pas un conseil en investissement.
           </p>
-          <p className="font-mono text-[11px]">
-            Hébergeable gratuitement sur GitHub Pages
+          <p className="font-mono text-[11px] text-claude-muted">
+            Sources: CMF Art. L. 221-30, CGI Art. 150-0 A, Décret n° 2020-89
           </p>
         </div>
       </footer>

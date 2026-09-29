@@ -10,9 +10,9 @@ interface NavigationProps {
 
 export const Navigation: React.FC<NavigationProps> = ({ activeTab, setActiveTab }) => {
   const tabs = [
-    { id: 'dca' as TabType, label: 'Simulateur DCA PEA', icon: Calculator },
-    { id: 'etfs' as TabType, label: 'Base ETF Réels', icon: BarChart3 },
-    { id: 'legislation' as TabType, label: 'Législation & Cas Réels', icon: Scale },
+    { id: 'dca' as TabType, label: 'Simulateur DCA', icon: Calculator },
+    { id: 'etfs' as TabType, label: 'Comparateur ETF', icon: BarChart3 },
+    { id: 'legislation' as TabType, label: 'Réglementation & Fiscalité', icon: Scale },
   ];
 
   return (

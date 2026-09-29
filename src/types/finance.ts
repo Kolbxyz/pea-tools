@@ -4,21 +4,24 @@ export interface DcaSimulationParams {
   initialCapital: number;
   monthlyDeposit: number;
   durationYears: number;
-  expectedAnnualReturn: number; // in percent (e.g., 8)
-  etfTer: number; // in percent (e.g., 0.25)
-  brokerFeePercent: number; // in percent (e.g., 0.5 or 0)
-  inflationRate: number; // in percent (e.g., 2 or 0)
+  expectedAnnualReturn: number;
+  etfTer: number;
+  brokerFeePercent: number;
+  inflationRate: number;
   peaCategory: PeaCategory;
+  currentAge: number; // e.g. 18 to 25
 }
 
 export interface YearSimulationPoint {
   year: number;
   month: number;
+  age: number;
   totalDeposited: number;
   grossValue: number;
   netValueAfterTaxes: number;
-  realPurchasingPower: number; // adjusted for inflation
+  realPurchasingPower: number;
   totalFeesPaid: number;
+  activeCeiling: number;
   peaCeilingReached: boolean;
 }
 
@@ -27,13 +30,14 @@ export interface DcaSimulationResult {
   totalDeposited: number;
   grossFinalValue: number;
   grossGains: number;
-  socialContributions: number; // 17.2% of gains
-  incomeTax: number; // 0% if >= 5 years, 12.8% if < 5 years
+  socialContributions: number;
+  incomeTax: number;
   netFinalValue: number;
   totalFeesPaid: number;
+  activeCeiling: number;
   isPeaCeilingReached: boolean;
-  monthsToReachCeiling: number | null;
-  equivalentLivretAValue: number; // for baseline comparison (e.g. 3% risk-free)
+  conversionAgeReachedYear: number | null; // year when PEA Jeune converted to Classique
+  equivalentLivretAValue: number;
 }
 
 export interface EtfInfo {
@@ -42,7 +46,7 @@ export interface EtfInfo {
   isin: string;
   issuer: 'BlackRock (iShares)' | 'Amundi' | 'BNP Paribas Easy' | 'Autre';
   indexTracked: string;
-  ter: number; // % annual expense ratio
+  ter: number;
   replicationType: 'Synthétique (Swap)' | 'Physique';
   distributionPolicy: 'Capitalisant' | 'Distribuant';
   sharePriceApprox: number;
